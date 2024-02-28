@@ -14,8 +14,8 @@ namespace Pr{
 
   switch(s){
     case 1: { task1();  break;}
-    case 2: { task2();  break;}
-    case 3: { task3();  break;}
+   // case 2: { task2();  break;}
+   // case 3: { task3();  break;}
   }
       
     }
@@ -23,7 +23,7 @@ namespace Pr{
 static void task1()
 {
     Console.WriteLine("\nTask2");
-    List<Place> a= new List<Place>();
+    //List<Place> a= new List<Place>();
 
     int [] n=new int[4];
     string [] s=new string[6];
@@ -56,6 +56,15 @@ static void task1()
       n[i]= Convert.ToInt32(Console.ReadLine());
     }
 
+    IPlace[]a=new IPlace[2]{
+        new Region(s[0],n[0],s[2]),
+        new Region(s[1], n[1], s[3])
+    };
+
+    foreach(Region c in a){
+        Console.WriteLine("Id: "+c.id+"Loc: " + c.loc + "\nSize: " + c.size);
+    }
+    
 
   /*  ar.SetValue(n[0],0); //id 1
     ar.SetValue(n[1],1); //id 2
@@ -69,14 +78,14 @@ static void task1()
     ar.SetValue(n[3],10); //population 2
 */
 
-     a.Add(new Region(s[0], n[0], s[2]));
-     a.Add(new Region(s[1], n[1], s[3]));
-     a.Add(new Town(s[0], n[0], s[4]));
-     a.Add(new Town(s[1], n[1], s[5]));
-     a.Add(new Metropolis(s[0], n[0], n[2]));
-     a.Add(new Metropolis(s[1], n[1], n[3]));
+    // a.Add(new Region(s[0], n[0], s[2]));
+    // a.Add(new Region(s[1], n[1], s[3]));
+    // a.Add(new Town(s[0], n[0], s[4]));
+    // a.Add(new Town(s[1], n[1], s[5]));
+    // a.Add(new Metropolis(s[0], n[0], n[2]));
+    // a.Add(new Metropolis(s[1], n[1], n[3]));
      
-    List<Place> sortpl = a.OrderBy(x=>x.id).ToList();
+    /*List<Place> sortpl = a.OrderBy(x=>x.id).ToList();
 
     Console.WriteLine("\nSort:");
      foreach (Place ar in sortpl)
@@ -84,30 +93,18 @@ static void task1()
         ar.Show();
      }
     Console.WriteLine("\n\n:");
-
-    //List<Place> b= new List<Place>();
-
-    /*b.Add(new Region());
-    b.Add(new Town());
-    b.Add(new Metropolis());
-
-    Console.WriteLine("\nCont:");
-     foreach (Place ar in b)
-     {
-        ar.Show();
-     }
-*/
+    */
 
 }
-
+/*
 static void task2()
 {
     Console.WriteLine("\nTask2");
     List<Place> b= new List<Place>();
 
-    b.Add(new Region());
-    b.Add(new Town());
-    b.Add(new Metropolis());
+    //b.Add(new Region());
+    //b.Add(new Town());
+    //b.Add(new Metropolis());
 
     Console.WriteLine("\nCont():");
      foreach (Place ar in b)
@@ -116,9 +113,9 @@ static void task2()
      }
 
     List<Place> c= new List<Place>();
-    c.Add(new Region("small"));
-    c.Add(new Town("usa"));
-    c.Add(new Metropolis(145));
+    //c.Add(new Region("small"));
+    //c.Add(new Town("usa"));
+    //c.Add(new Metropolis(145));
 
     Console.WriteLine("\nCont(1):");
      foreach (Place ar in c)
@@ -129,9 +126,9 @@ static void task2()
      
 
     List<Place> d= new List<Place>();
-    d.Add(new Region());
-    d.Add(new Town());
-    d.Add(new Metropolis());
+    //d.Add(new Region());
+    //d.Add(new Town());
+    //d.Add(new Metropolis());
     d=null;
 
 }
@@ -152,27 +149,41 @@ static void task3(){
     }
 
 }
-
+*/
 }
-public class Place {
+public interface IPlace : IComparer<IPlace>{
+    public string date();  
+    public int date1(); 
+}
+public class Place : IPlace {
 
     public string loc;
     public int id;
 
-    public string Location() {
+    int IComparer.Compare(IPlace a, IPlace b){
+      Place c1=(Place)a;
+      Place c2=(Place)b;
+      if (c1.id > c2.id)
+         return 1;
+      if (c1.id < c2.id)
+         return -1;
+      else
+         return 0;
+   }
+    public string date() {
         return loc;
     }
 
-    public int id_doc() {
+    public int date1() {
         return id;
     }
 
-    public Place(String loc, int id) {
+    public Place(string loc, int id) {
         this.loc = loc;
         this.id = id;
     }
 
-    public virtual void Show() {
+    public void Show() {
         Console.Write(id+" Place: "+ loc+"\n");
     }
     
@@ -193,19 +204,32 @@ public class Place {
         Console.WriteLine("Destructor");
     }
 }
-class Region : Place {
+public class Region : IPlace {
 
-    string size;
+    public string size;
+    public string loc;
+    public int id;
 
-    public Region(string loc, int id, string size) : base(loc,id) {
-        this.size = size;
+    int IComparer.Compare(object a, object b){
+        Region r=(Region)a;
+        Region r1=(Region)b;
+        return String.Compare(r.size,r1.size);
     }
 
-    public string getSize() {
+    public Region(string loc, int id, string size) {
+        this.size = size;
+        this.loc = loc;
+        this.id = id;
+    }
+
+    public string date() {
         return size;
     }
 
-    public override void Show() {
+    public int date1(){
+        return id;
+    }
+    public void Show() {
 
         Console.Write(id+ " Place "+ loc+" Region " +size+"\n");
     }
@@ -222,18 +246,29 @@ class Region : Place {
     }
 
 }
-class Town : Place {
+class Town : IPlace {
     string nation;
+    public string loc;
+    public int id;
 
-    public Town(string loc, int id, string nation) : base(loc,id){
+    public Town(string loc, int id, string nation){
         this.nation = nation;
+        this.id = id;
+        this.loc = loc;
     }
-
-    public string getNation() {
+    int IComparer.Compare(object a, object b){
+        Town r=(Town)a;
+        Town r1=(Town)b;
+        return String.Compare(r.nation,r1.nation);
+    }
+    public string date() {
         return nation;
     }
+    public int date1() {
+        return id;
+    }
 
-    public override void Show() {
+    public void Show() {
       Console.Write(id+ " Place "+ loc+" Town " +nation+"\n");
     }
 
@@ -248,19 +283,37 @@ class Town : Place {
         Console.WriteLine("T Destructor");
     }
 }
-class Metropolis : Place {
+class Metropolis : IPlace {
 
     int population;
+    public string loc;
+    public int id;
 
-    public Metropolis(string loc, int id, int population) : base(loc,id){
+    int IComparer.Compare(object a, object b){
+      Metropolis c1=(Metropolis)a;
+      Metropolis c2=(Metropolis)b;
+      if (c1.population > c2.population)
+         return 1;
+      if (c1.population < c2.population)
+         return -1;
+      else
+         return 0;
+   }
+    public Metropolis(string loc, int id, int population){
         this.population = population;
+        this.loc = loc;
+        this.id = id;
     }
 
-    public int getPopulation() {
+    public int date1() {
         return population;
     }
 
-    public override void Show() {
+    public string date() {
+        return loc;
+    }
+
+    public void Show() {
         Console.Write(id+ " Place "+ loc+" Metropolis " +population+"\n");
     }
 
