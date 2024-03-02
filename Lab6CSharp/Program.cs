@@ -7,15 +7,14 @@ namespace Pr{
   {
     static void Main(string[] args)
     {
-      Console.WriteLine("\nLab 3");
+      Console.WriteLine("\nLab 6");
       
       Console.WriteLine("Choose task: ");
       int s = Convert.ToInt32(Console.ReadLine());
 
   switch(s){
     case 1: { task1();  break;}
-   // case 2: { task2();  break;}
-   // case 3: { task3();  break;}
+    case 2: { task2();  break;}
   }
       
     }
@@ -23,7 +22,7 @@ namespace Pr{
 static void task1()
 {
     Console.WriteLine("\nTask2");
-    //List<Place> a= new List<Place>();
+    List<Place> a= new List<Place>();
 
     int [] n=new int[4];
     string [] s=new string[6];
@@ -56,15 +55,6 @@ static void task1()
       n[i]= Convert.ToInt32(Console.ReadLine());
     }
 
-    IPlace[]a=new IPlace[2]{
-        new Region(s[0],n[0],s[2]),
-        new Region(s[1], n[1], s[3])
-    };
-
-    foreach(Region c in a){
-        Console.WriteLine("Id: "+c.id+"Loc: " + c.loc + "\nSize: " + c.size);
-    }
-    
 
   /*  ar.SetValue(n[0],0); //id 1
     ar.SetValue(n[1],1); //id 2
@@ -78,62 +68,68 @@ static void task1()
     ar.SetValue(n[3],10); //population 2
 */
 
-    // a.Add(new Region(s[0], n[0], s[2]));
-    // a.Add(new Region(s[1], n[1], s[3]));
-    // a.Add(new Town(s[0], n[0], s[4]));
-    // a.Add(new Town(s[1], n[1], s[5]));
-    // a.Add(new Metropolis(s[0], n[0], n[2]));
-    // a.Add(new Metropolis(s[1], n[1], n[3]));
+     a.Add(new Region(s[0], n[0], s[2]));
+     a.Add(new Region(s[1], n[1], s[3]));
+     a.Add(new Town(s[0], n[0], s[4]));
+     a.Add(new Town(s[1], n[1], s[5]));
+     a.Add(new Metropolis(s[0], n[0], n[2]));
+     a.Add(new Metropolis(s[1], n[1], n[3]));
      
-    /*List<Place> sortpl = a.OrderBy(x=>x.id).ToList();
+    List<Place> sortpl = a.OrderBy(x=>x.id).ToList();
 
+
+    var r1 =new Region(s[0], n[0], s[2]);
+    var r2 =new Region(s[1], n[1], s[3]);
+  
+    Region[] r = { r1, r2};
+    Array.Sort(r);
+  
+    Console.WriteLine("\nRegion: ");
+    foreach (Region p in r){
+    Console.WriteLine(p.id + "\t\t" + p.size);
+    }
+
+    Town[] t = { new Town(s[0], n[0], s[4]), new Town(s[1], n[1], s[5])};
+    Array.Sort(t);
+    
+    Console.WriteLine("\nTown: ");
+    foreach (Town p in t){
+    Console.WriteLine(p.id + "\t\t" + p.nation);
+    }
+
+    Metropolis[] m = { new Metropolis(s[0], n[0], n[2]), new Metropolis(s[1], n[1], n[3])};
+    Array.Sort(m);
+  
+    Console.WriteLine("\nMetropolis: ");
+    foreach (Metropolis p in m){
+    Console.WriteLine(p.id + "\t\t" + p.population);
+    }
+
+
+    /*
     Console.WriteLine("\nSort:");
      foreach (Place ar in sortpl)
      {
         ar.Show();
      }
     Console.WriteLine("\n\n:");
-    */
 
-}
-/*
-static void task2()
-{
-    Console.WriteLine("\nTask2");
     List<Place> b= new List<Place>();
 
-    //b.Add(new Region());
-    //b.Add(new Town());
-    //b.Add(new Metropolis());
+    b.Add(new Region());
+    b.Add(new Town());
+    b.Add(new Metropolis());
 
-    Console.WriteLine("\nCont():");
+    Console.WriteLine("\nCont:");
      foreach (Place ar in b)
      {
         ar.Show();
      }
-
-    List<Place> c= new List<Place>();
-    //c.Add(new Region("small"));
-    //c.Add(new Town("usa"));
-    //c.Add(new Metropolis(145));
-
-    Console.WriteLine("\nCont(1):");
-     foreach (Place ar in c)
-     {
-        ar.Show();
-     }
-
-     
-
-    List<Place> d= new List<Place>();
-    //d.Add(new Region());
-    //d.Add(new Town());
-    //d.Add(new Metropolis());
-    d=null;
+*/
 
 }
 
-static void task3(){
+static void task2(){
     Telephone [] t =new Telephone[6]; 
     t[0]=new Persona("Polet","Street1","015 204 37 40");
     t[1]=new Organisation("Company","Street21","754 253 04 42","123 456 7890","Tim");
@@ -143,47 +139,64 @@ static void task3(){
     t[4]=new Organisation("Brand","Street102","145 785 42 15","485 153 1452","Holy");
     t[5]=new Friend("Wry","Street406","145 245 32 47","12.12.2012");
 
+    Persona[] p = { new Persona("Polet","Street1","015 204 37 40"),new Persona("Lop","Street025","854 123 45 62")};
+    Array.Sort(p);
+    
+    Console.WriteLine("\nPersona: ");
+    foreach (Persona k in p){
+    Console.WriteLine(k.phone + "\t\t" + k.lastname);
+    }
+
+    Organisation[] o= { new Organisation("Company","Street21","754 253 04 42","123 456 7890","Tim"), new Organisation("Brand","Street102","145 785 42 15","485 153 1452","Holy")};
+    Array.Sort(o);
+  
+    Console.WriteLine("\nOrganisation: ");
+    foreach (Organisation k in o){
+    Console.WriteLine(k.phone + "\t\t" + k.name);
+    }
+
+    Friend[] f = { new Friend("Mola","Street45","145 231 25 64","03.04.2001"),new Friend("Wry","Street406","145 245 32 47","12.12.2012")};
+    Array.Sort(f);
+    
+    Console.WriteLine("\nFriend: ");
+    foreach (Friend k in f){
+    Console.WriteLine(k.phone + "\t\t" + k.date);
+    }
+    
+    /*
     foreach (Telephone a in t){
         a.Show();
         Console.WriteLine("Search: "+ a.seach("Lop"));
     }
+    */
 
 }
-*/
+
 }
-public interface IPlace : IComparer<IPlace>{
-    public string date();  
-    public int date1(); 
-}
-public class Place : IPlace {
+public class Place:IComparable {
 
     public string loc;
     public int id;
+    public int CompareTo(object? o)
+    {
+        if(o is Place p) return id.CompareTo(p.id);
+        else throw new ArgumentException("Error");
+    }
 
-    int IComparer.Compare(IPlace a, IPlace b){
-      Place c1=(Place)a;
-      Place c2=(Place)b;
-      if (c1.id > c2.id)
-         return 1;
-      if (c1.id < c2.id)
-         return -1;
-      else
-         return 0;
-   }
-    public string date() {
+    public string Location() {
         return loc;
     }
 
-    public int date1() {
+    public int id_doc() {
         return id;
     }
 
-    public Place(string loc, int id) {
+    public Place(String loc, int id) {
         this.loc = loc;
         this.id = id;
     }
 
-    public void Show() {
+    public virtual void Show() {
         Console.Write(id+" Place: "+ loc+"\n");
     }
     
@@ -204,32 +217,24 @@ public class Place : IPlace {
         Console.WriteLine("Destructor");
     }
 }
-public class Region : IPlace {
+class Region : Place {
 
     public string size;
-    public string loc;
-    public int id;
 
-    int IComparer.Compare(object a, object b){
-        Region r=(Region)a;
-        Region r1=(Region)b;
-        return String.Compare(r.size,r1.size);
+    public int CompareTo(object? o)
+    {
+        if(o is Region p) return size.CompareTo(p.size);
+        else throw new ArgumentException("Error");
     }
-
-    public Region(string loc, int id, string size) {
+    public Region(string loc, int id, string size) : base(loc,id) {
         this.size = size;
-        this.loc = loc;
-        this.id = id;
     }
 
-    public string date() {
+    public string getSize() {
         return size;
     }
 
-    public int date1(){
-        return id;
-    }
-    public void Show() {
+    public override void Show() {
 
         Console.Write(id+ " Place "+ loc+" Region " +size+"\n");
     }
@@ -246,29 +251,22 @@ public class Region : IPlace {
     }
 
 }
-class Town : IPlace {
-    string nation;
-    public string loc;
-    public int id;
-
-    public Town(string loc, int id, string nation){
+class Town : Place {
+    public string nation;
+    public int CompareTo(object? o)
+    {
+        if(o is Town p) return nation.CompareTo(p.nation);
+        else throw new ArgumentException("Error");
+    }
+    public Town(string loc, int id, string nation) : base(loc,id){
         this.nation = nation;
-        this.id = id;
-        this.loc = loc;
     }
-    int IComparer.Compare(object a, object b){
-        Town r=(Town)a;
-        Town r1=(Town)b;
-        return String.Compare(r.nation,r1.nation);
-    }
-    public string date() {
+
+    public string getNation() {
         return nation;
     }
-    public int date1() {
-        return id;
-    }
 
-    public void Show() {
+    public override void Show() {
       Console.Write(id+ " Place "+ loc+" Town " +nation+"\n");
     }
 
@@ -283,37 +281,24 @@ class Town : IPlace {
         Console.WriteLine("T Destructor");
     }
 }
-class Metropolis : IPlace {
+class Metropolis : Place {
 
-    int population;
-    public string loc;
-    public int id;
+    public int population;
 
-    int IComparer.Compare(object a, object b){
-      Metropolis c1=(Metropolis)a;
-      Metropolis c2=(Metropolis)b;
-      if (c1.population > c2.population)
-         return 1;
-      if (c1.population < c2.population)
-         return -1;
-      else
-         return 0;
-   }
-    public Metropolis(string loc, int id, int population){
+    public int CompareTo(object? o)
+    {
+        if(o is Metropolis p) return population.CompareTo(p.population);
+        else throw new ArgumentException("Error");
+    }
+    public Metropolis(string loc, int id, int population) : base(loc,id){
         this.population = population;
-        this.loc = loc;
-        this.id = id;
     }
 
-    public int date1() {
+    public int getPopulation() {
         return population;
     }
 
-    public string date() {
-        return loc;
-    }
-
-    public void Show() {
+    public override void Show() {
         Console.Write(id+ " Place "+ loc+" Metropolis " +population+"\n");
     }
 
@@ -329,21 +314,31 @@ class Metropolis : IPlace {
     }
 }
 
-abstract class Telephone{
+abstract class Telephone:IComparable{
     abstract public void Show();
     abstract public bool seach(string l);
+    public int CompareTo(object? o){
+        return 0;
+    }
+
 }
 
 class Persona : Telephone{
-    protected string lastname;
-    protected string adress;
-    protected string phone;
+    public string lastname;
+    public string adress;
+    public string phone;
 
     public Persona(string l, string a,string p){
         this.lastname=l;
         this.adress=a;
         this.phone=p;
     }
+    public int CompareTo(object? o)
+    {
+        if(o is Persona p) return lastname.CompareTo(p.lastname);
+        else throw new ArgumentException("Error");
+    }
+    
 
     public override void Show()
     {
@@ -359,11 +354,11 @@ class Persona : Telephone{
     }
 
 class Organisation : Telephone{
-    protected string name;
-    protected string adress;
-    protected string phone;
-    protected string fax;
-    protected string contact;
+    public string name;
+    public string adress;
+    public string phone;
+    public string fax;
+    public string contact;
 
     public Organisation(string n, string a,string p,string f,string c){
         this.name=n;
@@ -372,7 +367,11 @@ class Organisation : Telephone{
         this.fax=f;
         this.contact=c;
     }
-
+    public int CompareTo(object? o)
+    {
+        if(o is Organisation p) return name.CompareTo(p.name);
+        else throw new ArgumentException("Error");
+    }
     public override void Show()
     {
         Console.WriteLine("\nName: "+name+"\nAdress: "+adress+"\nPhone: "+phone+"\nFax: "+fax+"\nContact: "+contact);
@@ -387,16 +386,21 @@ class Organisation : Telephone{
     }
 
 class Friend : Telephone{
-    protected string lastname;
-    protected string adress;
-    protected string phone;
-    protected string date;
+    public string lastname;
+    public string adress;
+    public string phone;
+    public string date;
 
     public Friend (string l, string a,string p,string d){
         this.lastname=l;
         this.adress=a;
         this.phone=p;
         this.date=d;
+    }
+    public int CompareTo(object? o)
+    {
+        if(o is Friend p) return date.CompareTo(p.date);
+        else throw new ArgumentException("Error");
     }
 
     public override void Show()
