@@ -27,31 +27,33 @@ static void task1()
     int [] n=new int[4];
     string [] s=new string[6];
 
-    Console.Write("Place id: ");
     for(int i = 0;i<2;i++)
     {
+        Console.Write("Place id "+(i+1)+" : ");
       n[i]= Convert.ToInt32(Console.ReadLine());
     }
 
-    Console.Write("Place location: ");
     for(int i = 0;i<2;i++)
     {
+        Console.Write("\nPlace location "+(i+1)+" : ");
       s[i]= Convert.ToString(Console.ReadLine());
     }
 
-    Console.Write("Region size(big/medium/small): ");
     for(int i = 2;i<4;i++)
     {
+        Console.Write("\nRegion size(big/medium/small) "+(i-1)+" : ");
       s[i]= Convert.ToString(Console.ReadLine());
     }
-    Console.Write("Town nation(ukr/usa/uk): ");
+
     for(int i = 4;i<6;i++)
     {
+        Console.Write("\nTown nation(ukr/usa/uk) "+(i-3)+" : ");
       s[i]= Convert.ToString(Console.ReadLine());
     }
-    Console.Write("Metropolis population: ");
+    
     for(int i = 2;i<4;i++)
     {
+        Console.Write("\nMetropolis population "+(i-1)+" : ");
       n[i]= Convert.ToInt32(Console.ReadLine());
     }
 
@@ -105,6 +107,14 @@ static void task1()
     Console.WriteLine(p.id + "\t\t" + p.population);
     }
 
+
+    Town tn =new Town(s[0], n[0], s[4]);
+    Town z = (Town)tn.Clone();
+    Console.WriteLine("\nTowm: ");
+    tn.Show();
+    Console.WriteLine("\nClone Town: ");
+    z.Show();
+    Console.WriteLine("\n");
 
     /*
     Console.WriteLine("\nSort:");
@@ -173,7 +183,7 @@ static void task2(){
 }
 
 }
-public class Place:IComparable {
+public class Place:IComparable, ICloneable {
 
     public string loc;
     public int id;
@@ -181,6 +191,9 @@ public class Place:IComparable {
     {
         if(o is Place p) return id.CompareTo(p.id);
         else throw new ArgumentException("Error");
+    }
+    public object Clone(){
+        return new Place(loc,id);
     }
 
     public string Location() {
@@ -191,7 +204,7 @@ public class Place:IComparable {
         return id;
     }
 
-    public Place(String loc, int id) {
+    public Place(string loc, int id) {
         this.loc = loc;
         this.id = id;
     }
@@ -201,16 +214,16 @@ public class Place:IComparable {
     }
     
     public Place(){
-        this.id=1;
-        this.loc="Location";
+        id=1;
+        loc="Location";
     }
     public Place(int d){
-        this.id=d;
-        this.loc="Location";
+        id=d;
+        loc="Location";
     }
     public Place(int d, string s){
-        this.id=d;
-        this.loc=s;
+        id=d;
+        loc=s;
     }
 
     ~Place(){
@@ -229,6 +242,9 @@ class Region : Place {
     public Region(string loc, int id, string size) : base(loc,id) {
         this.size = size;
     }
+    public object Clone(){
+        return new Region(size);
+    }
 
     public string getSize() {
         return size;
@@ -240,10 +256,10 @@ class Region : Place {
     }
 
     public Region(){
-        this.size="big";
+        size="big";
     }
     public Region(string s){
-        this.size=s;
+        size=s;
     }
 
     ~Region(){
@@ -258,6 +274,9 @@ class Town : Place {
         if(o is Town p) return nation.CompareTo(p.nation);
         else throw new ArgumentException("Error");
     }
+    public object Clone(){
+        return new Town(nation);
+    }
     public Town(string loc, int id, string nation) : base(loc,id){
         this.nation = nation;
     }
@@ -271,10 +290,10 @@ class Town : Place {
     }
 
     public Town(){
-        this.nation="ukr";
+        nation="ukr";
     }
     public Town(string s){
-        this.nation=s;
+        nation=s;
     }
 
     ~Town(){
@@ -290,6 +309,9 @@ class Metropolis : Place {
         if(o is Metropolis p) return population.CompareTo(p.population);
         else throw new ArgumentException("Error");
     }
+    public object Clone(){
+        return new Metropolis(population);
+    }
     public Metropolis(string loc, int id, int population) : base(loc,id){
         this.population = population;
     }
@@ -303,10 +325,10 @@ class Metropolis : Place {
     }
 
     public Metropolis(){
-        this.population=1520;
+        population=1520;
     }
     public Metropolis(int s){
-        this.population=s;
+        population=s;
     }
 
     ~Metropolis(){
